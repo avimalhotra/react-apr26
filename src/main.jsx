@@ -7,7 +7,7 @@ import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
 const root=document.getElementById("root");
 
 createRoot(root).render(
-  // <StrictMode>
+  //  <StrictMode> 
     <App />
   // </StrictMode>,
 );

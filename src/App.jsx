@@ -1,34 +1,34 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import Greet from "./Greets";
+import { useState } from "react";
 
 export default function App(){
 
-    const cars=["swift","baleno","dzire","brezza","grand vitara"];
+  const [counter,setCounter]=useState(0);
+  const [name,setName]=useState("");
+  const [age,setAge]=useState(0);
+  const [form,setForm]=useState({username:"", password:"", phone:""});
 
-    const car={name:"swift", power:82, torque:112, price:800000};
+  function handleClick(){
+      // setCounter(counter+1);
+      // setCounter(counter+2);
+      // setCounter(counter+3);
+      setCounter(x=>x+1);
+      setCounter(x=>x+2);
+      setCounter(x=>x+3);
+  }
+
+  function handleChange(e){
     
-    const data=[
-                {"id":1,"name": "swift", "type": "hatchback", "price":850000},
-                {"id":2,"name": "dzire", "type": "sedan", "price":980000},
-                {"id":3,"name": "ciaz", "type": "sedan", "price":1100000},
-                {"id":4,"name": "baleno", "type": "hatchback", "price":880000},
-                {"id":5,"name": "fronx", "type": "hatchback", "price":1150000},
-                {"id":6,"name": "brezza", "type": "suv", "price":1250000},
-                {"id":7,"name": "grand vitara", "type": "suv", "price":1990000},
-                {"id":8,"name": "invicto", "type": "mpv", "price":2990000},
-                {"id":9,"name": "alto", "type": "hatchback", "price":380000},
-                {"id":10,"name": "s presso", "type": "hatchback", "price":350000},
-                {"id":11,"name": "wagon r", "type": "hatchback", "price":500000},
-                {"id":12,"name": "jimny", "type": "suv", "price":1400000}
-            ];
+    const {name,value}=e.target;
 
-            const hatch=data.filter(i=>i.type=="hatchback");
+    setForm(prev=>(
+      {...prev, [name] : value }
+    ));
 
-            const numbers=[0,1,2,3,4,5,6,7,8,9];
-            const even=numbers.filter(i=>i%2==0);
-            const sum=numbers.reduce((x,y)=>x+y,0 );
-          
+
+  }
+
 
   return (
     <div className="container">
@@ -39,50 +39,40 @@ export default function App(){
           <h2>Hello User </h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
-            <hr />
-            <h2>Array</h2>
-            <ol>
-            {
-            cars.map((elem,ind)=>(
-                <li key={ind}>{elem}</li>
-            ))
-            }
-            </ol>
-            <hr />
-            <h2>Object</h2>
-            <table className="table table-bordered"><tbody>
-            {
-              Object.entries(car).map(([key,val],ind)=>(
-                <tr key={ind}><td>{key}</td><td>{val}</td></tr>
-              ))
-            }
-            </tbody>
-            </table>
-            <hr />
-            <h2>JSON Data</h2>
-              <table className="table table-bordered">
-              <thead>
-                  <tr className="table-dark">
-                    <th>S No</th>
-                    <th>Name</th>
-                    <th>Body Type</th>
-                    <th>Price</th>
-                  </tr>
-              </thead>  
-              <tbody>
-            {
-              data.map((elem)=>(
-                <tr key={elem.id}><td>{elem.id}</td><td>{elem.name}</td><td>{elem.type}</td><td>{elem.price.toLocaleString('en-in')}</td></tr>
-              ))
-            }
-            </tbody></table>
+          <button className="btn btn-primary me-3" onClick={()=>setCounter(counter+1)}>Increment</button> 
+          <button className="btn btn-primary me-3" onClick={()=>setCounter(counter-1)}>Decrement</button> 
+          <button className="btn btn-primary me-3" onClick={()=>setCounter(0)}>Reset</button> 
+          <span>{counter}</span>
 
-            <hr />
+          <hr />
 
-            <Greet x={1}></Greet>
+          <button className="btn btn-outline-primary" onClick={handleClick}>Click</button>
+          
+          <hr />
+
+          <form action="" className="row align-items-center">
+                <div className="col-auto"><label className="form-label" htmlFor="name">Name</label></div>
+                <div className="col-auto"><input value={name} type="text" id="name" className="form-control" onChange={e=>setName(e.target.value)} /></div>
+                <div className="col-auto"><label className="form-label" htmlFor="age">Age</label></div>
+                <div className="col-auto"><input value={age} type="number" id="age" className="form-control" onChange={e=>setAge(e.target.valueAsNumber)} /></div>
+          </form>
+          <p>Name: {name}</p>
+          <p>Age: {age}</p>
+
+          <hr />
+
+          <form action="" className="row align-items-center">
+                <div className="col-auto"><label className="form-label" htmlFor="username">Username</label></div>
+                <div className="col-auto"><input type="text" id="username" name="username" value={form.username} className="form-control" onChange={handleChange} /></div>
+                <div className="col-auto"><label className="form-label" htmlFor="phone">Phone</label></div>
+                <div className="col-auto"><input type="tel" name="phone" id="phone" value={form.phone} className="form-control" onChange={handleChange}  /></div>
+                <div className="col-auto"><label className="form-label" htmlFor="password">Password</label></div>
+                <div className="col-auto"><input type="password" name="password" id="password" value={form.password} className="form-control" onChange={handleChange}  /></div>
+          </form>
+          <p>Userame: {form.username}, 📞 : {form.phone}, Password: {form.password},  </p>
           
 
-                
+
         </main>
         <Footer />
     </div>
