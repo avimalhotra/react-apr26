@@ -59,7 +59,9 @@ export default function App(){
           <p>Name: {name}</p>
           <p>Age: {age}</p>
 
+
           <hr />
+
 
           <form action="" className="row align-items-center">
                 <div className="col-auto"><label className="form-label" htmlFor="username">Username</label></div>
