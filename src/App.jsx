@@ -1,49 +1,29 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App(){
 
-  const [counter,setCounter]=useState(0);
+  const [count,setCount]=useState(0);
   const [name,setName]=useState("");
   const [age,setAge]=useState(0);
-  const [form,setForm]=useState({username:"", password:"", phone:""});
-  const [arr,setArr]=useState([]);
+  const [terms,setTerms]=useState(false);
+  const [gender,setGender]=useState("");
+  const [city,setCity]=useState("");
 
-  function handleClick(){
-      // setCounter(counter+1);
-      // setCounter(counter+2);
-      // setCounter(counter+3);
-      setCounter(x=>x+1);
-      setCounter(x=>x+2);
-      setCounter(x=>x+3);
-  }
 
-  function handleChange(e){
+    // useEffect(()=>{console.log("effect")});       
+    // useEffect(()=>{console.log("effect")},[count]);
     
-    const {name,value}=e.target;
+    useEffect(()=>{
+          const interval=setInterval(()=>{
+            console.log(new Date().toLocaleString());
+          },1000);
 
-    setForm(prev=>(
-      { ...prev, [name] : value }
-    ));
-  }
+          return ()=>clearInterval(interval);     // clean up
 
-  /* array */
-
-  function addToArray(e){
-      e.preventDefault();
-      const x=e.target.num.value;
-      setArr([...arr,x]);
-      // document.querySelector("#num").value="";
-  }
-  function removeFromArray(e){
-      const t=e.target.parentElement.textContent.trim();
-      setArr(arr.filter(i=>i!=t));
-  }
-
-  function sayHello(x=""){
-    console.log(`datetime: ${x}`);
-  }
+    },[]);
+  
 
   return (
     <div className="container">
@@ -51,63 +31,58 @@ export default function App(){
         <Header />
 
         <main className="p-3">
-          <h2>Hello User </h2>
-          
-          {/* <button onClick={sayHello} className="btn btn-secondary">Hello</button> */}
-          <button onClick={()=>sayHello(new Date().toLocaleString())} className="btn btn-secondary">Hello</button>
+          <h2>Main </h2>
 
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <button className="btn btn-primary" onClick={()=>setCount(count+1)}>Add</button> <output>{count}</output>
 
-          <button className="btn btn-primary me-3" onClick={()=>setCounter(counter+1)}>Increment</button> 
-          <button className="btn btn-primary me-3" onClick={()=>setCounter(counter-1)}>Decrement</button> 
-          <button className="btn btn-primary me-3" onClick={()=>setCounter(0)}>Reset</button> 
-          <span>{counter}</span>
+            <hr />
+          <form action="" className="row align-items-center g-3">
+                <div className="col-3"><label className="form-label" htmlFor="name">Name</label></div>
+                <div className="col-9"><input value={name} type="text" id="name" className="form-control" onChange={e=>setName(e.target.value)} /></div>
+                
+                <div className="col-3"><label className="form-label" htmlFor="age">Age</label></div>
+                <div className="col-9"><input value={age} type="number" id="age" className="form-control" onChange={e=>setAge(e.target.valueAsNumber)} /></div>
+                
+                <div className="col-3"> Terms </div>
+                <div className="col-9">
+                  <div className="row">
+                      <div className="col-auto"> <input type="checkbox" id="terms" checked={terms} onChange={e=>setTerms(e.target.checked)} className="form-check"/></div> 
+                      <div className="col-auto"><label htmlFor="terms"> : I Agree</label></div>
+                  
+                  </div>
+                </div>
+                
+               <div className="col-3">Gender</div>
+               <div className="col-9">
+                      <div className="row">
+                          <div className="col-auto"><input type="radio" id="female" name="gender" value="female" checked={ gender==="female"} onChange={(e)=>setGender(e.target.value)}/> </div>
+                          <div className="col-auto"><label htmlFor="female"> : Female</label></div>
 
-          <hr />
+                          <div className="col-auto"><input type="radio" id="male" name="gender" value="male" checked={ gender==="male"} onChange={(e)=>setGender(e.target.value)}/> </div>
+                          <div className="col-auto"><label htmlFor="male"> : Male</label></div>
+                      </div>
+               </div>
 
-          <button className="btn btn-outline-primary" onClick={handleClick}>Click</button>
-          
-          <hr />
-
-          <form action="" className="row align-items-center">
-                <div className="col-auto"><label className="form-label" htmlFor="name">Name</label></div>
-                <div className="col-auto"><input value={name} type="text" id="name" className="form-control" onChange={e=>setName(e.target.value)} /></div>
-                <div className="col-auto"><label className="form-label" htmlFor="age">Age</label></div>
-                <div className="col-auto"><input value={age} type="number" id="age" className="form-control" onChange={e=>setAge(e.target.valueAsNumber)} /></div>
+                <div className="col-3"><label className="form-label" htmlFor="city">City</label></div>
+                <div className="col-9">
+                  <select className="form-select" value={city} onChange={(e)=>setCity(e.target.value)}>
+                    <option defaultValue="" disabled value="">--Choose City--</option>
+                    <option>New Delhi</option>
+                    <option>Chennai</option>
+                  </select>
+                </div>
+                
+                <div className="col-3"></div>
+                <div className="col-9"><button className="btn btn-primary">Send</button></div>
           </form>
+
           <p>Name: {name}</p>
           <p>Age: {age}</p>
+          <p>Terms: { (terms)? "Agree" : "Not Agree" }</p>
+          <p>Gender: { gender }</p>
+          <p>City: { city }</p>
 
-          <hr />
-
-          <form action="" className="row align-items-center">
-                <div className="col-auto"><label className="form-label" htmlFor="username">Username</label></div>
-                <div className="col-auto"><input type="text" id="username" name="username" value={form.username} className="form-control" onChange={handleChange} /></div>
-                <div className="col-auto"><label className="form-label" htmlFor="phone">Phone</label></div>
-                <div className="col-auto"><input type="tel" name="phone" id="phone" value={form.phone} className="form-control" onChange={handleChange}  /></div>
-                <div className="col-auto"><label className="form-label" htmlFor="password">Password</label></div>
-                <div className="col-auto"><input type="password" name="password" id="password" value={form.password} className="form-control" onChange={handleChange}  /></div>
-          </form>
-          <p>Userame: {form.username}, 📞 : {form.phone}, Password: {form.password},  </p>
-          <hr />
-
-          <form className="row align-items-center" onSubmit={addToArray}>
-            <div className="col-auto"><label htmlFor="num" className="form-label">Add Name : </label></div>
-            <div className="col-auto"><input className="form-control" id="num" type="text" name="num" required /></div>
-            <div className="col-auto"><button className="btn btn-primary">Add</button></div>
-          </form>
-          <ol className="list-group">
-            {
-              arr.map((elem,ind)=>(
-                  <li className="list-group-item" key={ind}>{elem} 
-                  <button className="btn-close float-end" onClick={removeFromArray}></button>
-                  </li>
-              ))
-            }
-          </ol>
-          
-
-
+    
         </main>
         <Footer />
     </div>
