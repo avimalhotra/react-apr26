@@ -41,6 +41,24 @@ export default function Cars(){
 
      },[]);
 
+     function sortPrice(){
+          const sort=[...data].sort((a,b)=>a.price-b.price); 
+          setData(sort);
+     }
+      function sortName(){
+          const sort=[...data].sort((a,b)=>{
+               if(a.name<=b.name){ return -1 }
+               else{ return 1 }
+          });
+          setData(sort);
+     }
+     function sortType(){
+          const sort=[...data].sort((a,b)=>{
+               if(a.type<=b.type){ return -1 }
+               else{ return 1 }
+          });
+          setData(sort);
+     }
 
 
      if(loading){ return  <img className="d-block mx-auto" src="loader.svg" alt="" width={100} height={100} /> }
@@ -48,6 +66,12 @@ export default function Cars(){
      if(error){ return <div className="alert alert-danger"> error found {error} </div> }
 
      return (
+          <>
+               <div className="mb-3">
+                    <button onClick={sortName} className="btn btn-outline-primary me-3">Name Sort</button>
+                    <button onClick={sortType} className="btn btn-outline-primary me-3">Type Sort</button>
+                    <button onClick={sortPrice} className="btn btn-outline-primary me-3">Price Sort</button>
+                    </div>
                <table className="table table-bordered border-primary">
                     <thead>
                          <tr>
@@ -71,6 +95,7 @@ export default function Cars(){
                               ))
                          }
                     </tbody>
-               </table>        
+               </table>     
+               </>  
      )
 }
