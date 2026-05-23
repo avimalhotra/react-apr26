@@ -1,24 +1,37 @@
 import Header from "./Header";
 import Footer from "./Footer";
 import Cars from "./Carapi";
-import { useRef, useState } from "react";
-// import { useEffect, useState } from "react";
+import Comp1 from "./C1";
+import Comp2 from "./C2";
+import { useState } from "react";
+import { createContext, useContext } from "react";
+
 
 export default function App(){
 
-  const ref=useRef(0);
-  const nameRef=useRef(null);
-  const ref2=useRef(0);
   const [counter,setCounter]=useState(0);
+  const data=[{ price: 10 }, { price: 20 }, { price: 30 }];
+  const total=data.reduce((x,y)=> x + y.price,0);
 
-  function changeRef(){
-    ref.current++;
-    console.log(ref);
+
+  /* context api */
+  const ThemeContext=createContext();
+
+  function ThemeData(){
+      const theme={ mode:"dark", text:"lightblue" };
+
+      return ( <ThemeContext.Provider value={theme}>
+              <Consumer />
+            </ThemeContext.Provider>
+      )
   }
 
-  function focusInput(){ nameRef.current.focus();}
+  function Consumer(){
+      const currentTheme=useContext(ThemeContext);
+      return <p>Mode: {currentTheme.mode}, text color:{currentTheme.text}</p>
+  }
 
-  ref2.current=ref2.current+1;
+  
  
   return (
     <div className="container">
@@ -27,24 +40,14 @@ export default function App(){
 
         <main className="p-3">
           <h2>Main </h2>
+          <button onClick={()=>setCounter(counter+1)} className="btn btn-primary me-3">Increment</button>
+          <span>Counter: {counter}</span>
           <hr />
           
-          <section>
-              <h2>Cars Data</h2>
-              <p>Ref: {ref.current}</p>
-              <button className="btn btn-outline-primary" onClick={changeRef}>Change Ref</button>
-              <hr />
-              <div className="row">
-                <div className="col-auto"><input type="text" className="form-control" ref={nameRef}/></div>
-                <div className="col-auto"><button className="btn btn-outline-primary" onClick={focusInput}>Focus</button></div>
-              </div>
-              <hr />
-              <button className="btn btn-outline-primary me-3" onClick={()=>setCounter(counter+1)}>Change Counter</button>
-              <p>Counter:{ counter}</p> 
-              <p>Component Rendered : {ref2.current}</p>
+          {/* <Comp1 count={counter} /> */}
+          {/* <Comp2 count={counter} /> */}
 
-              {/* <Cars></Cars> */}
-          </section>
+        <ThemeData></ThemeData>
 
         </main>
         <Footer />
