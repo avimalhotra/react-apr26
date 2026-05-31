@@ -1,77 +1,30 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import Cars from "./Carapi";
-import Comp1 from "./C1";
-import Comp2 from "./C2";
-import { useEffect, useRef, useState } from "react";
-import { createContext, useContext } from "react";
-import { useReducer } from "react";
-
+import { useState, useMemo } from "react";
+import Child from "./Child";
+import { useCallback } from "react";
 
 export default function App(){
 
-  /* context api */
-  const ThemeContext=createContext();
+  const [count,setCount]=useState(0);
 
-  /* provider */
-  function ThemeData(){
-      const [theme,setTheme]=useState(localStorage.theme || "light" );
-
-      useEffect(()=>{
-          document.documentElement.setAttribute("data-bs-theme",theme);
-          localStorage.setItem("theme",theme);
-      },[theme]);
-
-      return ( <ThemeContext.Provider value={{theme,setTheme}}>
-                  <Consumer />
-            </ThemeContext.Provider>
-      )
-  }
-
-  /* consumer */
-  function Consumer(){
-    const {theme,setTheme}=useContext(ThemeContext);
-
-      return (
-        <>
-            <p>Current Theme : {theme}</p>
-            <label><input type="checkbox" checked={ (theme=="dark") ? true : false  } onChange={(e)=>setTheme( (e.target.checked) ? "dark" : "light" )} /> : Dark</label>
-        </>
-      )
-  }
+  //   const expensiveTask=useMemo(()=>{
+  //     let counter=0;
+  //     console.time("t");
+  //       for( let i=1; i<=1000000000; i++){
+  //         counter +=i;
+  //       }
+  //       console.timeEnd("t");
+  //       return counter;
+  //   },[]);
 
 
-  /* useReducer */
+  // const handleClick = () => {  console.log("Clicked"); setCount(count+1) };
+  const handleClick = useCallback(() => {  
+      console.log("Clicked");
+      // setCount(count+1);             // change will re render
+   },[]);
 
-  const initialVal={ count:0 };
-
-  function reducer(state, action){
-      switch(action.type){
-          case "inc" : return { count : state.count+1 }; 
-          case "dec" : return { count : state.count-1 }; 
-          case "reset" : return { count : 0 }; 
-          default : state;
-      }
-  }
-
-  function Counter(){
-
-    const [state,dispatch]=useReducer(reducer,initialVal);
-
-    return (
-        <div>
-            <p>Initial Value : {initialVal.count}</p>
-            <p>Counter : {state?.count}</p>
-            <button onClick={()=>dispatch({type:"inc"})} className="btn btn-outline-success me-2">+</button>
-            <button onClick={()=>dispatch({type:"dec"})} className="btn btn-outline-danger me-2">-</button>
-            <button onClick={()=>dispatch({type:"reset"})} className="btn btn-outline-primary me-2">0</button>
-        </div>
-    )
-
-
-  }
-
-  
  
   return (
     <div className="container">
@@ -80,14 +33,18 @@ export default function App(){
 
         <main className="p-3">
           <h2>Main </h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam quos quaerat minus impedit quibusdam et dignissimos similique ex, vero, ab dicta vel nulla minima, quod perferendis aperiam. Maiores, mollitia non?</p>
+          <p>Counter: {count}</p>
+          <hr />
 
+          {/* <p>Total sum: {expensiveTask}</p>
 
-        <ThemeData></ThemeData>
+          <button className="btn btn-primary" onClick={()=>setCount(count+1)}>Add</button> <output>{count}</output> */}
 
-        <hr />
+          <hr />
 
-        <Counter></Counter>
-
+          
+          <Child click={handleClick}></Child>
 
 
         </main>
