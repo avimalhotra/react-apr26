@@ -1,1 +1,4 @@
 table{ text-transform: capitalize; }
+
+.model{ position: fixed; inset: 0; background: #000b; z-index: 10; }
+.popup{ position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 1rem; background: #fff; z-index: 11; border-radius: 10px; }
