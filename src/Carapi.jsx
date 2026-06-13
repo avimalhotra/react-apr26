@@ -3,18 +3,9 @@ import { useEffect, useState } from "react";
 
 export default function Cars(){
      const url=`https://www.techaltum.com/node/api`;
-     // useEffect(()=>{
-     //      fetch(url)
-     //      .then(i=>{ 
-     //           if(!i.ok){ throw new Error("api error") }
-     //           return i.json();
-     //      })
-     //      .then(i=>console.log(i))
-     //      .catch(e=>console.warn(e));
-     // },[]);
 
      const [data,setData]=useState([]);
-     const [loading,setLoading]=useState(true);
+     // const [loading,setLoading]=useState(true);
      const [error,setError]=useState(null);
 
 
@@ -23,7 +14,7 @@ export default function Cars(){
           async function fetchData(){
 
                try{
-                    setLoading(true);
+                    // setLoading(true);
                     let res=await fetch(url);
                     if(!res.ok){   throw new Error(`Error: ${res.status}`) }
                     let res2=await res.json();
@@ -33,7 +24,7 @@ export default function Cars(){
                     setError(err.message);
                }
                finally{
-                    setLoading(false);
+                    // setLoading(false);
                }
           }
 
@@ -61,12 +52,13 @@ export default function Cars(){
      }
 
 
-     if(loading){ return  <img className="d-block mx-auto" src="loader.svg" alt="" width={100} height={100} /> }
+     // if(loading){ return  <img className="d-block mx-auto" src="loader.svg" alt="" width={100} height={100} /> }
 
      if(error){ return <div className="alert alert-danger"> error found {error} </div> }
 
      return (
           <>
+               <h2>Cars API</h2>
                <div className="mb-3">
                     <button onClick={sortName} className="btn btn-outline-primary me-3">Name Sort</button>
                     <button onClick={sortType} className="btn btn-outline-primary me-3">Type Sort</button>

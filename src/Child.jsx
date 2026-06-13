@@ -2,7 +2,6 @@ import { forwardRef } from "react";
 
  const Child=forwardRef(function(props,ref){
      console.log(props);
-     // console.log(t);                         // error
 
      return (
           <section>

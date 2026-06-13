@@ -1,0 +1,7 @@
+export default function BlogComponent(){
+     return <>
+          <h2>Our Blogs</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dignissimos vitae magni. Blanditiis aspernatur, obcaecati voluptatem molestiae dolorem earum minus dolores, architecto temporibus dicta rem assumenda, expedita facilis cupiditate ipsam.</p>
+        
+     </>
+}
