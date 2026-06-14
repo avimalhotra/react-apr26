@@ -1,14 +1,7 @@
-import { Link, Outlet, useParams } from "react-router-dom"
-
-export default function BlogComponent(){
-      const { id } = useParams();
-      
+export default function ScienceBlog(){
      return <>
-          <h2>Our Blogs</h2>
+          <h2>Science Blog</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate dignissimos vitae magni. Blanditiis aspernatur, obcaecati voluptatem molestiae dolorem earum minus dolores, architecto temporibus dicta rem assumenda, expedita facilis cupiditate ipsam.</p>
-
-          <h3>Params: {id}</h3>
-          
-          <Outlet></Outlet>
+        
      </>
 }

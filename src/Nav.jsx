@@ -8,6 +8,7 @@ export default function Navbar(){
                     <li className="nav-item"><Link to="/about">About</Link></li>
                     <li className="nav-item"><Link to="/blog">Blog</Link></li>
                     <li className="nav-item"><Link to="/cars">Cars</Link></li>
+                    {/* <li className="nav-item"><a href="/cars">Cars</a></li> */}
                </ul>    
           </nav>  
      </>
